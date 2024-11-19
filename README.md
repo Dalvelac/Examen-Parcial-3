@@ -123,6 +123,6 @@ Aunque C no tiene un sistema integrado de manejo de excepciones como C++, discut
 # Conclusión:
 Con base en tu experiencia y las implementaciones desarrolladas:
 ## ¿Cuál de los dos lenguajes consideras más adecuado para el proyecto del CGEA?
-Si bien C es eficiente y adecuado para tareas de bajo nivel, su enfoque procedimental limita la capacidad de construir sistemas complejos y escalables. C++ es la opción ideal para el proyecto del CGEA debido a su equilibrio entre rendimiento, flexibilidad y herramientas modernas que simplifican el desarrollo y mantenimiento del sistema.
+Si bien C es eficiente y adecuado para tareas de bajo nivel, su enfoque procedimental limita la capacidad de construir sistemas complejos y escalables. C++ es la opción ideal para el proyecto del CGEA debido a su equilibrio entre rendimiento, flexibilidad y herramientas modernas que simplifican el desarrollo y mantenimiento del sistema.(Realizada con chat gpt)
 ## ¿Qué recomendaciones harías al equipo de desarrollo del CGEA para la siguiente fase del proyecto?
-Siguiendo estas recomendaciones, el CGEA podrá garantizar un desarrollo eficiente y exitoso de su sistema de gestión académica, ofreciendo un servicio moderno, seguro y escalable que responda a las necesidades de su diversa población estudiantil y optimice los procesos internos de la universidad.
+Siguiendo estas recomendaciones, el CGEA podrá garantizar un desarrollo eficiente y exitoso de su sistema de gestión académica, ofreciendo un servicio moderno, seguro y escalable que responda a las necesidades de su diversa población estudiantil y optimice los procesos internos de la universidad.(Realizada con chat gpt)
