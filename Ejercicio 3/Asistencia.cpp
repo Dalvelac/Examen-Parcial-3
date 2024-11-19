@@ -3,11 +3,10 @@
 #include <vector>
 #include <regex>
 
-
 struct Asistencia {
     std::string fecha;
     std::string materia;
-    std::string estado;
+    std::string estado; // asistio, falta, tardanza
 };
 
 struct Estudiante {
@@ -28,6 +27,7 @@ void mostrarEstudiante(const Estudiante& estudiante) {
     }
 }
 
+// Función para mostrar todos los estudiantes
 void mostrarTodosEstudiantes(const std::vector<Estudiante>& estudiantes) {
     for (const auto& estudiante : estudiantes) {
         mostrarEstudiante(estudiante);
@@ -35,33 +35,60 @@ void mostrarTodosEstudiantes(const std::vector<Estudiante>& estudiantes) {
     }
 }
 
+// Función para agregar un estudiante
 void agregarEstudiante(std::vector<Estudiante>& estudiantes, const Estudiante& nuevoEstudiante) {
     estudiantes.push_back(nuevoEstudiante);
 }
 
+// Función para eliminar un estudiante por nombre
 void eliminarEstudiante(std::vector<Estudiante>& estudiantes, const std::string& nombre) {
     for (auto it = estudiantes.begin(); it != estudiantes.end(); ++it) {
         if (it->nombre == nombre) {
             estudiantes.erase(it);
-            break;
+            std::cout << "Estudiante eliminado correctamente." << std::endl;
+            return;
         }
     }
+    std::cout << "Estudiante no encontrado." << std::endl;
 }
 
-void registrarAsistencia(Estudiante& estudiante, const Asistencia& nuevaAsistencia) {
-    estudiante.asistencias.push_back(nuevaAsistencia);
-}
-
+// Validar si la fecha es válida (formato dd/mm/aaaa)
 bool validarFecha(const std::string& fecha) {
     std::regex fechaRegex("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\\d{4}$");
     return std::regex_match(fecha, fechaRegex);
 }
 
+// Validar si el estado es válido (asistio, falta, tardanza)
 bool validarEstado(const std::string& estado) {
     return (estado == "asistio" || estado == "falta" || estado == "tardanza");
 }
 
+// Función para registrar asistencia
+void registrarAsistencia(Estudiante& estudiante) {
+    Asistencia nuevaAsistencia;
+    std::cout << "Ingrese la fecha (dd/mm/aaaa): ";
+    std::cin.ignore();
+    std::getline(std::cin, nuevaAsistencia.fecha);
+    if (!validarFecha(nuevaAsistencia.fecha)) {
+        std::cout << "Error: Fecha invalida. Debe ser en formato dd/mm/aaaa." << std::endl;
+        return;
+    }
+
+    std::cout << "Ingrese la materia: ";
+    std::getline(std::cin, nuevaAsistencia.materia);
+
+    std::cout << "Ingrese el estado (asistio, falta, tardanza): ";
+    std::getline(std::cin, nuevaAsistencia.estado);
+    if (!validarEstado(nuevaAsistencia.estado)) {
+        std::cout << "Error: Estado invalido. Solo se permite: asistio, falta, tardanza." << std::endl;
+        return;
+    }
+
+    estudiante.asistencias.push_back(nuevaAsistencia);
+}
+
 int main() {
+    // Lista de estudiantes
     std::vector<Estudiante> estudiantes;
 
     int opcion;
@@ -109,27 +136,7 @@ int main() {
 
             for (auto& estudiante : estudiantes) {
                 if (estudiante.nombre == nombre) {
-                    Asistencia nuevaAsistencia;
-                    do {
-                        std::cout << "Ingrese la fecha (dd/mm/aaaa): ";
-                        std::getline(std::cin, nuevaAsistencia.fecha);
-                        if (!validarFecha(nuevaAsistencia.fecha)) {
-                            std::cout << "Fecha invalida. Intente de nuevo." << std::endl;
-                        }
-                    } while (!validarFecha(nuevaAsistencia.fecha));
-
-                    std::cout << "Ingrese la materia: ";
-                    std::getline(std::cin, nuevaAsistencia.materia);
-
-                    do {
-                        std::cout << "Ingrese el estado (asistio, falta, tardanza): ";
-                        std::getline(std::cin, nuevaAsistencia.estado);
-                        if (!validarEstado(nuevaAsistencia.estado)) {
-                            std::cout << "Estado invalido. Intente de nuevo." << std::endl;
-                        }
-                    } while (!validarEstado(nuevaAsistencia.estado));
-
-                    registrarAsistencia(estudiante, nuevaAsistencia);
+                    registrarAsistencia(estudiante);
                     break;
                 }
             }
