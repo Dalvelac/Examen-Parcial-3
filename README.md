@@ -86,41 +86,280 @@ El código debe estar bien documentado y organizado.
 Se debe incluir un archivo README con instrucciones sobre cómo compilar y ejecutar el programa.
 El código debe compilarse sin errores ni advertencias en CLion.
 
-## Estructura del Estudiante:
+## Ejercicio 1 Estructura del Estudiante explicación del codigo realizado.
 
-### C++:
-Implementa una estructura llamada Estudiante con los campos: nombre, edad, y promedio.
-Desarrolla la función mostrarEstudiante() que muestre todos los campos de la estructura.
-### C:
-Realiza una implementación equivalente en el lenguaje C.
-### Comparativa:
-Discute las diferencias clave entre las dos implementaciones.
+1. Estructura_Estudiantes.cpp
 
-## Gestión de Materias:
-Dado que cada estudiante tiene un conjunto de materias, expande tu implementación para incluir la gestión de las mismas.
+Este archivo contiene una implementación en C++ para gestionar información de estudiantes utilizando estructuras.
+Descripción:
 
-### C++:
-Añade a la estructura Estudiante una lista o vector de materias en las que está inscrito.
-Implementa funciones para agregar, eliminar y mostrar estas materias.
-### C:
-Realiza una implementación equivalente en el lenguaje C.
+    Estructura: Define una estructura Estudiante con los campos:
+        nombre: Almacena el nombre del estudiante (cadena de texto).
+        edad: Almacena la edad del estudiante (entero).
+        promedio: Almacena el promedio del estudiante (número decimal).
+    Funciones:
+        mostrarEstudiante: Muestra los valores de los campos de un estudiante en la consola.
+    Flujo del programa:
+        Crea un objeto de la estructura Estudiante.
+        Asigna valores a los campos del objeto.
+        Llama a la función mostrarEstudiante para imprimir los valores en la consola.
 
-## Registro de Asistencia:
-Es vital para la universidad llevar un control de la asistencia de sus estudiantes.
-### C++:
-Diseña una clase o estructura Asistencia que contenga: fecha, materia y estado (asistió, falta, tardanza).
-Integra esta estructura con Estudiante y desarrolla funciones para registrar y mostrar la asistencia.
-### C:
-Realiza una implementación equivalente en el lenguaje C.
+Ejemplo de salida:
 
-## Manejo de Excepciones:
-El sistema debe ser capaz de manejar situaciones inesperadas, como errores en el formato de la fecha, materias no registradas, etc.
-### C++:
-Implementa excepciones personalizadas para manejar estos escenarios.
+Nombre: Juan Perez
+Edad: 20
+Promedio: 8.5
 
-## Demuestra su uso con bloques try, catch.
-### C:
-Aunque C no tiene un sistema integrado de manejo de excepciones como C++, discute cómo podrías manejar errores y situaciones inesperadas en este lenguaje.
+2. Estructura_Estudiantes.c
+
+Este archivo contiene una implementación similar, pero utilizando C.
+Descripción:
+
+    Estructura: Define una estructura Estudiante con los mismos campos que en la versión de C++.
+    Funciones:
+        mostrarEstudiante: Recibe un puntero a un objeto Estudiante y muestra los valores de sus campos utilizando la función printf.
+    Flujo del programa:
+        Crea una variable de tipo Estudiante.
+        Utiliza strcpy para asignar un valor al campo nombre.
+        Asigna valores a los campos edad y promedio.
+        Llama a la función mostrarEstudiante pasando la dirección del objeto.
+
+Ejemplo de salida:
+
+Nombre: Juan Perez
+Edad: 20
+Promedio: 8.50
+
+Comparativa entre las implementaciones
+
+    C++: Utiliza características modernas como cadenas de texto (std::string) y funciones miembro que hacen que el código sea más legible y seguro.
+    C: Usa métodos más tradicionales, como arreglos de caracteres (char[]) y punteros, que requieren una gestión más manual pero son útiles en sistemas más básicos.
+
+
+## Ejercicio 2 Gestión de Materias explicación del codigo realizado:
+1. Gestion_estudiantes.c
+
+Implementación en C para manejar información de estudiantes y las materias que cursan.
+Funcionalidades:
+
+    Estructura Estudiante:
+        nombre: Nombre del estudiante (arreglo de caracteres).
+        materias: Lista de materias que cursa (matriz de cadenas).
+        num_materias: Número total de materias inscritas.
+    Funciones principales:
+        mostrarEstudiante: Muestra el nombre y las materias de un estudiante.
+        mostrarTodosEstudiantes: Lista la información de todos los estudiantes.
+        agregarEstudiante: Permite añadir un nuevo estudiante con sus materias.
+        eliminarEstudiante: Elimina un estudiante especificado por su nombre.
+    Flujo del programa:
+        Permite al usuario agregar estudiantes, eliminarlos o mostrar la lista completa.
+        Utiliza un menú interactivo con opciones numeradas.
+        Maneja hasta un máximo de 100 estudiantes.
+
+Ejemplo de menú:
+
+Menu de gestion de materias de estudiantes:
+1. Agregar estudiante
+2. Eliminar estudiante
+3. Mostrar todos los estudiantes
+4. Salir
+Seleccione una opcion:
+
+2. Gestion_Estudiantes.cpp
+
+Versión del programa escrita en C++, utilizando características modernas del lenguaje.
+Funcionalidades:
+
+    Estructura Estudiante:
+        nombre: Nombre del estudiante (cadena std::string).
+        materias: Lista de materias que cursa (vector std::vector<std::string>).
+    Funciones principales:
+        mostrarEstudiante: Muestra el nombre y las materias de un estudiante.
+        mostrarTodosEstudiantes: Lista la información de todos los estudiantes.
+        agregarEstudiante: Añade un nuevo estudiante a la lista.
+        eliminarEstudiante: Elimina un estudiante por su nombre utilizando iteradores.
+    Flujo del programa:
+        Ofrece un menú interactivo similar al de la versión en C.
+        Utiliza contenedores dinámicos (std::vector) para manejar un número ilimitado de estudiantes.
+        Implementa funcionalidades modernas como la gestión de memoria automática.
+
+Ejemplo de menú:
+
+Menu de gestion de materias de estudiantes:
+1. Agregar estudiante
+2. Eliminar estudiante
+3. Mostrar todos los estudiantes
+4. Salir
+Seleccione una opcion:
+
+Comparativa entre las implementaciones
+
+    C: Más básica, con gestión manual de memoria y limitaciones en el tamaño de los datos (arreglos fijos).
+    C++: Más flexible, utiliza cadenas dinámicas y contenedores STL para mayor eficiencia y facilidad de uso.
+
+## Ejercicio 3 Registro de Asistencia explicación del codigo realizado :
+1. Asistencia.cpp
+
+Implementación en C++ para manejar estudiantes, materias y asistencias.
+Funcionalidades:
+
+    Estructuras:
+        Asistencia: Almacena los detalles de asistencia, incluyendo:
+            fecha (formato dd/mm/aaaa).
+            materia.
+            estado (asistió, falta, tardanza).
+        Estudiante: Contiene:
+            nombre.
+            Lista de materias (vector dinámico).
+            Lista de registros de asistencia (vector dinámico).
+    Funciones principales:
+        mostrarEstudiante: Muestra la información del estudiante, incluyendo sus materias y asistencias.
+        mostrarTodosEstudiantes: Lista todos los estudiantes y sus detalles.
+        agregarEstudiante: Añade un nuevo estudiante y sus materias.
+        eliminarEstudiante: Elimina un estudiante por su nombre.
+        registrarAsistencia: Añade un registro de asistencia validando la fecha y el estado.
+    Validación:
+        Verifica que la fecha cumpla el formato dd/mm/aaaa.
+        Asegura que el estado sea uno de los valores permitidos.
+    Flujo del programa:
+        Ofrece un menú interactivo con opciones para gestionar estudiantes y sus asistencias.
+        Utiliza contenedores STL (std::vector) para manejar listas dinámicas de estudiantes y asistencias.
+
+Ejemplo de menú:
+
+Menu de gestion de estudiantes y asistencias:
+1. Agregar estudiante
+2. Eliminar estudiante
+3. Mostrar todos los estudiantes
+4. Registrar asistencia
+5. Salir
+Seleccione una opcion:
+
+2. Asistenciac.c
+
+Versión en C para gestionar estudiantes, materias y asistencias.
+Funcionalidades:
+
+    Estructuras:
+        Asistencia: Similar a la versión en C++, incluye:
+            fecha (arreglo de caracteres, formato dd/mm/aaaa).
+            materia.
+            estado (asistió, falta, tardanza).
+        Estudiante: Contiene:
+            nombre.
+            Lista de materias (arreglo fijo).
+            Lista de registros de asistencia (arreglo fijo).
+            Contadores para materias y asistencias.
+    Funciones principales:
+        mostrarEstudiante: Imprime la información del estudiante.
+        mostrarTodosEstudiantes: Lista todos los estudiantes y sus detalles.
+        agregarEstudiante: Permite añadir un nuevo estudiante con sus materias.
+        eliminarEstudiante: Elimina un estudiante por su nombre.
+        registrarAsistencia: Añade un registro de asistencia validando datos.
+    Validación:
+        Comprueba que la fecha tenga el formato correcto y que el estado sea válido.
+    Flujo del programa:
+        Ofrece un menú interactivo similar al de la versión en C++.
+        Usa arreglos estáticos para manejar estudiantes y asistencias, limitados por tamaño máximo.
+
+Ejemplo de menú:
+
+Menu de gestion de estudiantes y asistencias:
+1. Agregar estudiante
+2. Eliminar estudiante
+3. Mostrar todos los estudiantes
+4. Registrar asistencia
+5. Salir
+Seleccione una opcion:
+
+Comparativa entre las implementaciones
+
+    C++:
+        Utiliza contenedores dinámicos (std::vector), lo que permite gestionar un número variable de estudiantes y registros sin restricciones.
+        Emplea cadenas de texto (std::string) y expresiones regulares para la validación.
+    C:
+        Depende de arreglos estáticos para estudiantes, materias y asistencias, con tamaños máximos definidos.
+        Usa funciones tradicionales de C para manipulación de cadenas (strcpy, strcmp) y validación de datos.
+
+## Ejercicio 4 Manejo de Excepciones  explicación del codigo realizado:
+1. Excepciones.cpp
+
+Implementación en C++ con manejo de excepciones.
+Funcionalidades:
+
+    Excepciones personalizadas:
+        FechaInvalidaException: Lanzada cuando la fecha no cumple el formato dd/mm/aaaa.
+        EstadoInvalidoException: Lanzada cuando el estado no es asistió, falta o tardanza.
+    Estructuras:
+        Asistencia: Almacena detalles como:
+            fecha (formato dd/mm/aaaa).
+            materia.
+            estado.
+        Estudiante: Contiene:
+            nombre.
+            Lista dinámica de materias.
+            Lista dinámica de registros de asistencia.
+    Funciones principales:
+        validarFecha: Verifica que la fecha cumpla el formato correcto.
+        validarEstado: Asegura que el estado sea uno de los valores válidos.
+        registrarAsistencia: Registra una nueva asistencia, lanzando excepciones en caso de errores.
+        mostrarEstudiante, mostrarTodosEstudiantes, agregarEstudiante, eliminarEstudiante: Para gestionar estudiantes y sus registros.
+    Flujo del programa:
+        Presenta un menú interactivo para añadir, eliminar y listar estudiantes, así como para registrar asistencias.
+        Maneja errores mediante excepciones, mejorando la robustez del programa.
+
+Ejemplo de menú:
+
+Menu de gestion de estudiantes y asistencias:
+1. Agregar estudiante
+2. Eliminar estudiante
+3. Mostrar todos los estudiantes
+4. Registrar asistencia
+5. Salir
+Seleccione una opcion:
+
+2. ExcepcionesC.c
+
+Versión en C con validaciones manuales.
+Funcionalidades:
+
+    Estructuras:
+        Asistencia: Similar a la versión en C++, incluye:
+            fecha (arreglo de caracteres, formato dd/mm/aaaa).
+            materia.
+            estado.
+        Estudiante: Contiene:
+            nombre.
+            Lista de materias (arreglo fijo).
+            Lista de registros de asistencia (arreglo fijo).
+            Contadores para materias y asistencias.
+    Funciones principales:
+        validarFecha: Comprueba que la fecha tenga el formato correcto.
+        validarEstado: Asegura que el estado sea válido.
+        registrarAsistencia: Solicita datos del usuario y valida entradas antes de registrar la asistencia.
+        mostrarEstudiante, mostrarTodosEstudiantes, agregarEstudiante, eliminarEstudiante: Gestionan estudiantes y registros.
+    Flujo del programa:
+        Presenta un menú interactivo para gestionar estudiantes y asistencias.
+        Realiza validaciones manuales y notifica errores mediante mensajes.
+
+Ejemplo de menú:
+
+Menu de gestion de estudiantes y asistencias:
+1. Agregar estudiante
+2. Eliminar estudiante
+3. Mostrar todos los estudiantes
+4. Registrar asistencia
+5. Salir
+Seleccione una opcion:
+
+Comparativa entre las implementaciones
+
+    C++:
+        Usa excepciones para manejar errores, lo que simplifica la gestión y mejora la legibilidad.
+        Implementa listas dinámicas con std::vector.
+    C:
+        Depende de validaciones manuales y notificaciones de errores mediante mensajes.
+        Utiliza arreglos estáticos, limitados por tamaños predefinidos.
 
 # Conclusión:
 Con base en tu experiencia y las implementaciones desarrolladas:
