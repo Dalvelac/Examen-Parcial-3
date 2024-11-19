@@ -2,13 +2,11 @@
 #include <string>
 #include <vector>
 
-// Definir la estructura Estudiante
 struct Estudiante {
     std::string nombre;
     std::vector<std::string> materias;
 };
 
-// Funcion para mostrar los campos del estudiante
 void mostrarEstudiante(const Estudiante& estudiante) {
     std::cout << "Nombre: " << estudiante.nombre << std::endl;
     std::cout << "Materias: " << std::endl;
@@ -17,7 +15,6 @@ void mostrarEstudiante(const Estudiante& estudiante) {
     }
 }
 
-// Funcion para mostrar todos los estudiantes
 void mostrarTodosEstudiantes(const std::vector<Estudiante>& estudiantes) {
     for (const auto& estudiante : estudiantes) {
         mostrarEstudiante(estudiante);
@@ -25,12 +22,10 @@ void mostrarTodosEstudiantes(const std::vector<Estudiante>& estudiantes) {
     }
 }
 
-// Funcion para agregar un estudiante
 void agregarEstudiante(std::vector<Estudiante>& estudiantes, const Estudiante& nuevoEstudiante) {
     estudiantes.push_back(nuevoEstudiante);
 }
 
-// Funcion para eliminar un estudiante por nombre
 void eliminarEstudiante(std::vector<Estudiante>& estudiantes, const std::string& nombre) {
     for (auto it = estudiantes.begin(); it != estudiantes.end(); ++it) {
         if (it->nombre == nombre) {
@@ -41,7 +36,6 @@ void eliminarEstudiante(std::vector<Estudiante>& estudiantes, const std::string&
 }
 
 int main() {
-    // Lista de estudiantes
     std::vector<Estudiante> estudiantes;
 
     int opcion;
