@@ -91,7 +91,7 @@ Implementa una estructura llamada Estudiante con los campos: nombre, edad, y pro
 Desarrolla la función mostrarEstudiante() que muestre todos los campos de la estructura.
 ### C:
 Realiza una implementación equivalente en el lenguaje C.
-###Comparativa:
+### Comparativa:
 Discute las diferencias clave entre las dos implementaciones.
 
 ## Gestión de Materias:
@@ -111,12 +111,12 @@ Integra esta estructura con Estudiante y desarrolla funciones para registrar y m
 ### C:
 Realiza una implementación equivalente en el lenguaje C.
 
-##Manejo de Excepciones:
+## Manejo de Excepciones:
 El sistema debe ser capaz de manejar situaciones inesperadas, como errores en el formato de la fecha, materias no registradas, etc.
 ### C++:
 Implementa excepciones personalizadas para manejar estos escenarios.
 
-##Demuestra su uso con bloques try, catch.
+## Demuestra su uso con bloques try, catch.
 ### C:
 Aunque C no tiene un sistema integrado de manejo de excepciones como C++, discute cómo podrías manejar errores y situaciones inesperadas en este lenguaje.
 
