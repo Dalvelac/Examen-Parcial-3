@@ -24,12 +24,12 @@ El link directo a tu repositorio de GitHub.
 Una descripción breve de cada uno de los ejercicios resueltos, con referencias a los archivos o carpetas específicos donde se puede encontrar cada solución.
 El uso adecuado de Markdown en tu README.md para estructurar y formatear el contenido será valorado positivamente.
 
-# 4.Envío:
+## 4.Envío:
 
 Entrega el archivo ZIP a través de la plataforma o método que se te indique (por ejemplo, un sistema de gestión de aprendizaje, correo electrónico, etc.).
 Asegúrate de enviar tu trabajo antes de la fecha y hora límite. Las entregas fuera de plazo pueden no ser evaluadas o incurrir en penalizaciones.
 
-# 5.Otros aspectos a considerar:
+## 5.Otros aspectos a considerar:
 
 Asegúrate de que tu código esté bien comentado, organizado y que sea fácil de leer y entender.
 Si utilizas alguna referencia externa para resolver algún ejercicio, es esencial que lo cites en tu README.md.
