@@ -123,7 +123,8 @@ Aunque C no tiene un sistema integrado de manejo de excepciones como C++, discut
 # Conclusión:
 Con base en tu experiencia y las implementaciones desarrolladas:
 ## ¿Cuál de los dos lenguajes consideras más adecuado para el proyecto del CGEA?
+### C++ proporciona un balance ideal entre rendimiento, modularidad y flexibilidad, siendo más adecuado para un proyecto avanzado como el CGEA, especialmente si se anticipa crecimiento o cambios futuros en las funcionalidades del sistema.
 ## ¿Qué recomendaciones harías al equipo de desarrollo del CGEA para la siguiente fase del proyecto?
-
-¿Cuál de los dos lenguajes consideras más adecuado para el proyecto del CGEA?
-¿Qué recomendaciones harías al equipo de desarrollo del CGEA para la siguiente fase del proyecto
+### El equipo del CGEA debe priorizar:
+### C++ para lógica modular y escalable, aprovechando herramientas modernas.
+### C para componentes críticos de bajo nivel o con necesidades de rendimiento extremo. Además, mantener un enfoque en el diseño claro, pruebas rigurosas, y documentación sólida para asegurar el éxito de las siguientes fases del proyecto.
