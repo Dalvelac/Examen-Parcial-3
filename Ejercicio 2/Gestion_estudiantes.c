@@ -1,14 +1,12 @@
 #include <stdio.h>
 #include <string.h>
 
-// Definir la estructura Estudiante
 typedef struct {
     char nombre[50];
     char materias[10][50];
     int num_materias;
 } Estudiante;
 
-// Función para mostrar los campos del estudiante
 void mostrarEstudiante(const Estudiante* estudiante) {
     printf("Nombre: %s\n", estudiante->nombre);
     printf("Materias: \n");
@@ -17,7 +15,6 @@ void mostrarEstudiante(const Estudiante* estudiante) {
     }
 }
 
-// Función para mostrar todos los estudiantes
 void mostrarTodosEstudiantes(const Estudiante estudiantes[], int num_estudiantes) {
     for (int i = 0; i < num_estudiantes; i++) {
         mostrarEstudiante(&estudiantes[i]);
@@ -25,7 +22,6 @@ void mostrarTodosEstudiantes(const Estudiante estudiantes[], int num_estudiantes
     }
 }
 
-// Funcion para agregar un estudiante
 void agregarEstudiante(Estudiante estudiantes[], int* num_estudiantes) {
     if (*num_estudiantes >= 100) {
         printf("No se pueden agregar mas estudiantes.\n");
