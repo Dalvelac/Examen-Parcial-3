@@ -1,106 +1,187 @@
-En C, aunque no existe un sistema integrado de manejo de excepciones como en C++, se pueden implementar técnicas para manejar errores y situaciones inesperadas. Algunas formas comunes incluyen:
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
 
-    Verificación de valores de retorno:
-        En C, las funciones suelen devolver un valor que indica el estado de la operación. Por ejemplo, 0 o un valor positivo puede indicar éxito, mientras que -1 puede indicar error.
-        Al utilizar funciones estándar como fopen() o malloc(), se debe verificar siempre el valor de retorno (por ejemplo, si fopen() devuelve NULL, indica que no se pudo abrir el archivo).
+#define MAX_ESTUDIANTES 100
+#define MAX_MATERIAS 10
+#define MAX_ASISTENCIAS 100
 
-FILE *file = fopen("data.txt", "r");
-if (file == NULL) {
-    printf("Error: No se pudo abrir el archivo.\n");
-    return 1;
-}
+// Definir la estructura Asistencia
+typedef struct {
+    char fecha[11];
+    char materia[50];
+    char estado[10]; // asistio, falta, tardanza
+} Asistencia;
 
-Uso de códigos de error:
+// Definir la estructura Estudiante
+typedef struct {
+    char nombre[50];
+    char materias[MAX_MATERIAS][50];
+    int num_materias;
+    Asistencia asistencias[MAX_ASISTENCIAS];
+    int num_asistencias;
+} Estudiante;
 
-    Se pueden definir códigos de error específicos mediante constantes (#define) para cada posible error, lo cual permite a la función indicar el tipo de error producido.
-    Los códigos de error se pueden gestionar con switch o if para responder adecuadamente a diferentes errores.
-
-#define ERROR_FECHA_INVALIDA 1
-#define ERROR_ESTADO_INVALIDO 2
-
-int validarFecha(const char *fecha) {
+// Función para validar si la fecha es válida (formato dd/mm/aaaa)
+bool validarFecha(const char* fecha) {
     int dia, mes, anio;
     if (sscanf(fecha, "%d/%d/%d", &dia, &mes, &anio) != 3) {
-        return ERROR_FECHA_INVALIDA;
+        return false;
     }
     if (dia < 1 || dia > 31 || mes < 1 || mes > 12 || anio < 1000 || anio > 9999) {
-        return ERROR_FECHA_INVALIDA;
+        return false;
     }
-    return 0;  // No hay error
+    return true;
 }
 
-int main() {
-    char fecha[11];
-    printf("Ingrese la fecha (dd/mm/aaaa): ");
-    scanf("%10s", fecha);
-    int resultado = validarFecha(fecha);
-    if (resultado == ERROR_FECHA_INVALIDA) {
-        printf("Error: Fecha invalida. Intente de nuevo.\n");
+// Validar si el estado es válido (asistio, falta, tardanza)
+bool validarEstado(const char* estado) {
+    return (strcmp(estado, "asistio") == 0 || strcmp(estado, "falta") == 0 || strcmp(estado, "tardanza") == 0);
+}
+
+// Función para mostrar los campos del estudiante
+void mostrarEstudiante(const Estudiante* estudiante) {
+    printf("Nombre: %s\n", estudiante->nombre);
+    printf("Materias: \n");
+    for (int i = 0; i < estudiante->num_materias; i++) {
+        printf("  - %s\n", estudiante->materias[i]);
+    }
+    printf("Asistencias: \n");
+    for (int i = 0; i < estudiante->num_asistencias; i++) {
+        printf("  Fecha: %s, Materia: %s, Estado: %s\n", estudiante->asistencias[i].fecha, estudiante->asistencias[i].materia, estudiante->asistencias[i].estado);
     }
 }
 
-Uso de assert() para verificar condiciones:
-
-    La macro assert() de la biblioteca <assert.h> se utiliza para verificar condiciones que deberían ser siempre verdaderas. Si la condición es falsa, el programa se detiene mostrando un mensaje de error que indica la línea donde falló.
-    assert() es útil para encontrar errores de lógica durante el desarrollo.
-
-#include <assert.h>
-
-void calcularPromedio(int numEstudiantes) {
-    assert(numEstudiantes > 0);  // Verificar que el número de estudiantes sea mayor que cero
-    // Código para calcular el promedio
-}
-
-Manejo con setjmp() y longjmp():
-
-    C proporciona funciones como setjmp() y longjmp() para manejar "saltos" en la ejecución, que pueden considerarse como un tipo primitivo de manejo de excepciones.
-    setjmp() guarda el estado del programa y longjmp() permite volver a ese punto en caso de error.
-    Esta técnica es más avanzada y rara vez se utiliza, ya que es difícil de mantener y puede complicar la lógica del programa.
-
-#include <setjmp.h>
-#include <stdio.h>
-
-jmp_buf buffer;
-
-void funcionQueFalla() {
-    printf("Ocurrió un error. Saltando de vuelta.\n");
-    longjmp(buffer, 1);
-}
-
-int main() {
-    if (setjmp(buffer) == 0) {
-        printf("Intentando hacer algo...\n");
-        funcionQueFalla();  // Simular un error
-    } else {
-        printf("Error manejado y vuelto al punto seguro.\n");
+// Función para mostrar todos los estudiantes
+void mostrarTodosEstudiantes(const Estudiante estudiantes[], int num_estudiantes) {
+    for (int i = 0; i < num_estudiantes; i++) {
+        mostrarEstudiante(&estudiantes[i]);
+        printf("-------------------------\n");
     }
-    return 0;
 }
 
-Uso de mensajes de error y stderr:
-
-    Cuando ocurre un error, se debe proporcionar al usuario un mensaje significativo para entender qué falló. Se puede usar fprintf(stderr, "...") para enviar mensajes de error al flujo de error estándar.
-    Esto es útil para diferenciar los mensajes normales de los errores.
-
-if (numEstudiantes < 0) {
-    fprintf(stderr, "Error: El número de estudiantes no puede ser negativo.\n");
-    return -1;
-}
-
-Funciones de manejo de errores propias:
-
-    Puedes definir funciones específicas para manejar errores en diferentes escenarios. Estas funciones imprimen mensajes o realizan limpiezas necesarias.
-
-    void manejarError(const char *mensaje) {
-        fprintf(stderr, "Error: %s\n", mensaje);
-        // Realizar acciones adicionales si es necesario, como liberar recursos
+// Función para agregar un estudiante
+void agregarEstudiante(Estudiante estudiantes[], int* num_estudiantes) {
+    if (*num_estudiantes >= MAX_ESTUDIANTES) {
+        printf("No se pueden agregar mas estudiantes.\n");
+        return;
     }
 
-    int main() {
-        if (/* alguna condición de error */) {
-            manejarError("Algo salió mal");
-            return 1;
+    Estudiante nuevoEstudiante;
+    printf("Ingrese el nombre del estudiante: ");
+    getchar();
+    fgets(nuevoEstudiante.nombre, sizeof(nuevoEstudiante.nombre), stdin);
+    nuevoEstudiante.nombre[strcspn(nuevoEstudiante.nombre, "\n")] = 0; // Eliminar salto de línea
+
+    printf("Ingrese el numero de materias: ");
+    scanf("%d", &nuevoEstudiante.num_materias);
+    getchar();
+    for (int i = 0; i < nuevoEstudiante.num_materias; i++) {
+        printf("Ingrese el nombre de la materia %d: ", i + 1);
+        fgets(nuevoEstudiante.materias[i], sizeof(nuevoEstudiante.materias[i]), stdin);
+        nuevoEstudiante.materias[i][strcspn(nuevoEstudiante.materias[i], "\n")] = 0; // Eliminar salto de línea
+    }
+
+    nuevoEstudiante.num_asistencias = 0;
+    estudiantes[*num_estudiantes] = nuevoEstudiante;
+    (*num_estudiantes)++;
+}
+
+// Función para eliminar un estudiante por nombre
+void eliminarEstudiante(Estudiante estudiantes[], int* num_estudiantes, const char* nombre) {
+    for (int i = 0; i < *num_estudiantes; i++) {
+        if (strcmp(estudiantes[i].nombre, nombre) == 0) {
+            for (int j = i; j < *num_estudiantes - 1; j++) {
+                estudiantes[j] = estudiantes[j + 1];
+            }
+            (*num_estudiantes)--;
+            printf("Estudiante eliminado correctamente.\n");
+            return;
         }
     }
+    printf("Estudiante no encontrado.\n");
+}
 
-En resumen, aunque C no tiene excepciones como C++, puedes manejar errores mediante verificación de códigos de retorno, uso de macros como assert(), manejo de errores mediante setjmp()/longjmp(), y funciones específicas para manejar errores. Esto hace que el manejo de errores en C sea más explícito y basado en convenciones, pero si se sigue un enfoque sistemático, se puede lograr un manejo adecuado de errores y situaciones inesperadas.
+// Función para registrar asistencia
+void registrarAsistencia(Estudiante* estudiante) {
+    if (estudiante->num_asistencias >= MAX_ASISTENCIAS) {
+        printf("No se pueden agregar mas asistencias.\n");
+        return;
+    }
+
+    Asistencia nuevaAsistencia;
+    do {
+        printf("Ingrese la fecha (dd/mm/aaaa): ");
+        fgets(nuevaAsistencia.fecha, sizeof(nuevaAsistencia.fecha), stdin);
+        nuevaAsistencia.fecha[strcspn(nuevaAsistencia.fecha, "\n")] = 0; // Eliminar salto de línea
+        if (!validarFecha(nuevaAsistencia.fecha)) {
+            printf("Fecha invalida. Intente de nuevo.\n");
+        }
+    } while (!validarFecha(nuevaAsistencia.fecha));
+
+    printf("Ingrese la materia: ");
+    fgets(nuevaAsistencia.materia, sizeof(nuevaAsistencia.materia), stdin);
+    nuevaAsistencia.materia[strcspn(nuevaAsistencia.materia, "\n")] = 0; // Eliminar salto de línea
+
+    do {
+        printf("Ingrese el estado (asistio, falta, tardanza): ");
+        fgets(nuevaAsistencia.estado, sizeof(nuevaAsistencia.estado), stdin);
+        nuevaAsistencia.estado[strcspn(nuevaAsistencia.estado, "\n")] = 0; // Eliminar salto de línea
+        if (!validarEstado(nuevaAsistencia.estado)) {
+            printf("Estado invalido. Intente de nuevo.\n");
+        }
+    } while (!validarEstado(nuevaAsistencia.estado));
+
+    estudiante->asistencias[estudiante->num_asistencias] = nuevaAsistencia;
+    estudiante->num_asistencias++;
+}
+
+int main() {
+    // Lista de estudiantes
+    Estudiante estudiantes[MAX_ESTUDIANTES];
+    int num_estudiantes = 0;
+
+    int opcion;
+    do {
+        printf("\nMenu de gestion de estudiantes y asistencias:\n");
+        printf("1. Agregar estudiante\n");
+        printf("2. Eliminar estudiante\n");
+        printf("3. Mostrar todos los estudiantes\n");
+        printf("4. Registrar asistencia\n");
+        printf("5. Salir\n");
+        printf("Seleccione una opcion: ");
+        scanf("%d", &opcion);
+        getchar();
+
+        if (opcion == 1) {
+            agregarEstudiante(estudiantes, &num_estudiantes);
+        } else if (opcion == 2) {
+            char nombre[50];
+            printf("Ingrese el nombre del estudiante a eliminar: ");
+            fgets(nombre, sizeof(nombre), stdin);
+            nombre[strcspn(nombre, "\n")] = 0; // Eliminar salto de línea
+            eliminarEstudiante(estudiantes, &num_estudiantes, nombre);
+        } else if (opcion == 3) {
+            printf("\nLista de estudiantes:\n");
+            mostrarTodosEstudiantes(estudiantes, num_estudiantes);
+        } else if (opcion == 4) {
+            char nombre[50];
+            printf("Ingrese el nombre del estudiante para registrar asistencia: ");
+            fgets(nombre, sizeof(nombre), stdin);
+            nombre[strcspn(nombre, "\n")] = 0; // Eliminar salto de línea
+
+            for (int i = 0; i < num_estudiantes; i++) {
+                if (strcmp(estudiantes[i].nombre, nombre) == 0) {
+                    registrarAsistencia(&estudiantes[i]);
+                    break;
+                }
+            }
+        } else if (opcion == 5) {
+            printf("Saliendo...\n");
+        } else {
+            printf("Opcion invalida, intente de nuevo.\n");
+        }
+    } while (opcion != 5);
+
+    return 0;
+}
